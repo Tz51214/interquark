@@ -420,12 +420,12 @@
    and make sure your NestJS server is running.
    ============================================================ */
 const API_BASE = 'http://localhost:3000';
- 
+
 /* Holds the logged-in user's JWT + basic info in memory for this session.
    Resets on page reload — fine for local testing. */
 let authToken = null;
 let currentUser = null;
- 
+
 const catalog = {
   webdev: [
     {id:'wp-01', sku:'ZWS-WP-01', name:'WordPress Business Site', badge:null,
@@ -562,18 +562,18 @@ function toggleCart(open){
 }
 async function requestQuote(){
   if(cart.length === 0){ alert('Add at least one service before requesting a quote.'); return; }
- 
+
   if(!authToken){
     alert('Please sign in or join as a freelancer first, then submit your cart as an order.');
     openJoinModal();
     return;
   }
- 
+
   const quoteBtn = document.querySelector('.quote-btn');
   const originalText = quoteBtn.textContent;
   quoteBtn.disabled = true;
   quoteBtn.textContent = 'Submitting order...';
- 
+
   try {
     const res = await fetch(`${API_BASE}/orders`, {
       method: 'POST',
@@ -585,17 +585,17 @@ async function requestQuote(){
         items: cart.map(c => ({ sku: c.sku, name: c.name, tier: c.tier, price: c.price }))
       })
     });
- 
+
     let data = {};
     try { data = await res.json(); } catch(e) { /* non-JSON response */ }
- 
+
     if(!res.ok){
       alert(data.message || `Could not submit order (${res.status}).`);
       quoteBtn.disabled = false;
       quoteBtn.textContent = originalText;
       return;
     }
- 
+
     cart = [];
     renderCart();
     toggleCart(false);
@@ -748,7 +748,7 @@ function sendChat(){
     body.scrollTop = body.scrollHeight;
   }, 700 + Math.random()*500);
 }
- 
+
 /* ============================================================
    REAL AUTH — wired to your NestJS backend
    Adjust field names below (name/email/password) if your
@@ -759,44 +759,44 @@ async function submitSignin(){
   const password = document.getElementById('signinPassword').value;
   const note = document.getElementById('signinNote');
   const btn = document.getElementById('signinBtn');
- 
+
   if(!email || !password){
     note.textContent = 'Please fill in both fields.';
     note.style.color = 'var(--accent)';
     return;
   }
- 
+
   btn.disabled = true;
   note.textContent = 'Signing in...';
   note.style.color = 'var(--text-faint)';
- 
+
   try {
     const res = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ email, password })
     });
- 
+
     let data = {};
     try { data = await res.json(); } catch(e) { /* non-JSON response */ }
- 
+
     if(!res.ok){
       note.textContent = data.message || `Sign in failed (${res.status}).`;
       note.style.color = 'var(--accent)';
       btn.disabled = false;
       return;
     }
- 
+
     authToken = data.accessToken;
     currentUser = data.user;
- 
+
     document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
         <div class="success-icon">✓</div>
         <h2>Signed in</h2>
         <p class="modal-sub">Welcome back, ${currentUser.fullName || currentUser.email}!</p>
       </div>`;
- 
+
     setTimeout(() => { closeJoinModal(); }, 1200);
   } catch(err){
     note.textContent = 'Could not reach the server. Is your NestJS backend running on ' + API_BASE + '?';
@@ -804,43 +804,43 @@ async function submitSignin(){
     btn.disabled = false;
   }
 }
- 
+
 async function submitJoin(){
   const name = document.getElementById('joinName').value.trim();
   const email = document.getElementById('joinEmail').value.trim();
   const password = document.getElementById('joinPassword').value;
   const note = document.getElementById('joinNote');
   const btn = document.getElementById('joinBtn');
- 
+
   if(!name || !email || !password){
     note.textContent = 'Please fill in all fields.';
     note.style.color = 'var(--accent)';
     return;
   }
- 
+
   btn.disabled = true;
   note.textContent = 'Creating account...';
   note.style.color = 'var(--text-faint)';
- 
+
   try {
     const res = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ name, email, password, tier: selectedTier })
     });
- 
+
     let data = {};
     try { data = await res.json(); } catch(e) { /* non-JSON response */ }
- 
+
     if(!res.ok){
       note.textContent = data.message || `Registration failed (${res.status}).`;
       note.style.color = 'var(--accent)';
       btn.disabled = false;
       return;
     }
- 
+
     const tier = freelancerTiers.find(t => t.id === selectedTier);
- 
+
     // Registration succeeded — log them straight in so they don't have
     // to re-enter credentials on the Sign in tab.
     try {
@@ -855,14 +855,14 @@ async function submitJoin(){
         currentUser = loginData.user;
       }
     } catch(e) { /* non-fatal — they can sign in manually if this fails */ }
- 
+
     document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
         <div class="success-icon">✓</div>
         <h2>Welcome to the studio</h2>
         <p class="modal-sub">Your account was created on the <b>${tier.name}</b> plan.</p>
       </div>`;
- 
+
     setTimeout(() => { closeJoinModal(); }, 1200);
   } catch(err){
     note.textContent = 'Could not reach the server. Is your NestJS backend running on ' + API_BASE + '?';
