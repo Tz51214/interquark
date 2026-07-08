@@ -33,7 +33,6 @@
   .mono{font-family:'Roboto Mono',monospace;}
   a{color:inherit;text-decoration:none;}
   ::selection{background:var(--primary);color:#fff;}
-
   header{
     position:sticky;top:0;z-index:40;
     display:flex;align-items:center;justify-content:space-between;
@@ -72,7 +71,6 @@
     background:rgba(255,255,255,0.25);border-radius:999px;min-width:18px;height:18px;
     display:flex;align-items:center;justify-content:center;font-size:11px;
   }
-
   .hero{
     max-width:1200px;margin:0 auto;padding:80px 40px 60px;
     display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;
@@ -86,7 +84,6 @@
   .float-shape.s2{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),#F7B677);border-radius:50%;top:60%;right:4%;--r:0deg;box-shadow:0 16px 32px rgba(242,153,74,0.3);animation-delay:1.2s;}
   .float-shape.s3{width:30px;height:30px;background:#fff;border:1px solid var(--border-strong);border-radius:8px;top:14%;left:2%;--r:-12deg;transform:rotate(-12deg);box-shadow:0 12px 24px rgba(20,28,46,0.1);animation-delay:2.4s;}
   @keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-16px) rotate(var(--r,0deg));}}
-
   .receipt-3d-wrap{perspective:1200px;}
   .eyebrow{
     font-size:13px;color:var(--primary);font-weight:600;letter-spacing:0.5px;
@@ -98,7 +95,6 @@
   .hero p{color:var(--text-dim);font-size:16.5px;line-height:1.7;max-width:460px;margin:0 0 28px;}
   .hero-ctas{display:flex;gap:14px;}
   .btn-lg{padding:13px 26px;font-size:14.5px;border-radius:8px;}
-
   .receipt{
     position:relative;
     background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;
@@ -117,19 +113,16 @@
   .rline b{color:var(--text);font-weight:600;}
   .rline .amt{color:var(--accent);font-family:'Roboto Mono',monospace;}
   .receipt-empty{color:var(--text-faint);text-align:center;padding:28px 0;font-size:13px;}
-
   .strip{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;overflow:hidden;}
   .strip-track{display:flex;gap:44px;white-space:nowrap;animation:scroll 28s linear infinite;width:max-content;}
   .strip-track span{font-size:13px;color:var(--text-faint);font-weight:500;}
   @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
   section{max-width:1200px;margin:0 auto;padding:76px 40px;}
   .section-head{text-align:center;margin-bottom:44px;}
   .section-head .eyebrow{justify-content:center;}
   .section-head .eyebrow::before{display:none;}
   .section-head h2{font-size:clamp(26px,3vw,34px);font-weight:700;margin:0 0 10px;color:var(--text);}
   .section-head p{color:var(--text-dim);font-size:15.5px;max-width:520px;margin:0 auto;}
-
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;perspective:1000px;}
   .card{
     background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
@@ -160,7 +153,6 @@
   }
   .add-btn:hover{background:var(--primary);}
   .add-btn.added{background:#EAF0FE;color:var(--primary);}
-
   .overlay{position:fixed;inset:0;background:rgba(20,28,46,0.45);z-index:60;opacity:0;pointer-events:none;transition:opacity .25s;}
   .overlay.open{opacity:1;pointer-events:auto;}
   .drawer{
@@ -185,7 +177,6 @@
   .quote-btn{width:100%;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:13px;font-weight:600;font-size:14px;cursor:pointer;}
   .quote-btn:hover{background:var(--primary-dark);}
   .drawer-note{font-size:11px;color:var(--text-faint);text-align:center;margin-top:10px;}
-
   .modal-overlay{position:fixed;inset:0;background:rgba(20,28,46,0.45);z-index:70;opacity:0;pointer-events:none;transition:opacity .25s;display:flex;align-items:center;justify-content:center;padding:24px;}
   .modal-overlay.open{opacity:1;pointer-events:auto;}
   .modal{width:100%;max-width:440px;max-height:88vh;overflow-y:auto;background:#fff;border-radius:14px;padding:32px;position:relative;box-shadow:0 20px 60px rgba(20,28,46,0.2);
@@ -210,12 +201,11 @@
   .tier-price small{display:block;font-size:10px;color:var(--text-faint);font-weight:400;text-align:right;}
   .modal-submit{width:100%;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:13px;font-weight:600;font-size:14px;cursor:pointer;}
   .modal-submit:hover{background:var(--primary-dark);}
+  .modal-submit:disabled{opacity:0.6;cursor:not-allowed;}
   .modal-note{font-size:11px;color:var(--text-faint);text-align:center;margin-top:12px;}
   .success-state{text-align:center;padding:16px 0;}
   .success-icon{width:52px;height:52px;border-radius:50%;background:#EAF0FE;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:22px;color:var(--primary);}
-
   footer{border-top:1px solid var(--border);padding:36px 40px;text-align:center;color:var(--text-faint);font-size:13px;background:var(--bg-alt);}
-
   .chat-fab{
     position:fixed;bottom:26px;right:26px;z-index:80;
     width:58px;height:58px;border-radius:50%;background:var(--primary);color:#fff;
@@ -225,7 +215,6 @@
   }
   .chat-fab:hover{transform:scale(1.06);background:var(--primary-dark);}
   .chat-dot{position:absolute;top:6px;right:6px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid #fff;}
-
   .chat-panel{
     position:fixed;bottom:96px;right:26px;z-index:80;width:340px;height:440px;
     background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(20,28,46,0.2);
@@ -253,7 +242,6 @@
   .chat-input-row input:focus{outline:none;border-color:var(--primary);}
   .chat-send{background:var(--primary);color:#fff;border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;flex-shrink:0;}
   .chat-note{font-size:10px;color:var(--text-faint);text-align:center;padding:6px 12px 10px;background:#fff;}
-
   @media(max-width:900px){
     .hero{grid-template-columns:1fr;padding-top:44px;}
     .grid{grid-template-columns:1fr;}
@@ -263,7 +251,6 @@
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">
     <div class="logo-mark">Z</div>
@@ -285,7 +272,6 @@
     </button>
   </div>
 </header>
-
 <div class="hero">
   <div>
     <div class="eyebrow">Since 2019</div>
@@ -308,14 +294,12 @@
     </div>
   </div>
 </div>
-
 <div class="strip">
   <div class="strip-track">
     <span>Magento 2</span><span>Adobe Commerce</span><span>Shopify</span><span>WooCommerce</span><span>WordPress</span><span>AWS</span><span>Cloudflare</span><span>PHP</span><span>React</span><span>Node.js</span>
     <span>Magento 2</span><span>Adobe Commerce</span><span>Shopify</span><span>WooCommerce</span><span>WordPress</span><span>AWS</span><span>Cloudflare</span><span>PHP</span><span>React</span><span>Node.js</span>
   </div>
 </div>
-
 <section id="webdev">
   <div class="section-head">
     <div class="eyebrow">Web Development</div>
@@ -324,7 +308,6 @@
   </div>
   <div class="grid" id="webdev-grid"></div>
 </section>
-
 <section id="migrations">
   <div class="section-head">
     <div class="eyebrow">Migrations &amp; Integrations</div>
@@ -333,7 +316,6 @@
   </div>
   <div class="grid" id="migrations-grid"></div>
 </section>
-
 <section id="security" style="background:var(--bg-alt);max-width:none;padding-left:0;padding-right:0;">
   <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
     <div class="section-head">
@@ -344,7 +326,6 @@
     <div class="grid" id="security-grid"></div>
   </div>
 </section>
-
 <section id="growth">
   <div class="section-head">
     <div class="eyebrow">Growth &amp; Compliance</div>
@@ -353,7 +334,6 @@
   </div>
   <div class="grid" id="growth-grid"></div>
 </section>
-
 <section id="saas">
   <div class="section-head">
     <div class="eyebrow">Platforms</div>
@@ -362,7 +342,6 @@
   </div>
   <div class="grid" id="saas-grid"></div>
 </section>
-
 <section id="retainer" style="background:var(--bg-alt);max-width:none;padding-left:0;padding-right:0;">
   <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
     <div class="section-head">
@@ -373,7 +352,6 @@
     <div class="grid" id="retainer-grid" style="grid-template-columns:repeat(3,1fr);"></div>
   </div>
 </section>
-
 <section id="contact" style="background:var(--bg-alt);max-width:none;padding-left:0;padding-right:0;">
   <div style="max-width:720px;margin:0 auto;padding:0 40px;">
     <div class="section-head">
@@ -393,9 +371,7 @@
     </div>
   </div>
 </section>
-
 <footer>Interquark.co.uk 2026. All rights reserved. </footer>
-
 <div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
 <div class="drawer" id="drawer">
   <div class="drawer-head">
@@ -409,7 +385,6 @@
     <div class="drawer-note">Demo cart — no payment is processed here.</div>
   </div>
 </div>
-
 <div class="modal-overlay" id="joinOverlay" onclick="if(event.target===this)closeJoinModal()">
   <div class="modal">
     <button class="modal-close" onclick="closeJoinModal()">&times;</button>
@@ -421,23 +396,31 @@
         <div class="tab" id="tabJoin" onclick="switchTab('join')">Join as freelancer</div>
       </div>
       <div id="signinPane">
-        <div class="form-group"><label>EMAIL</label><input type="email" placeholder="you@example.com"></div>
-        <div class="form-group"><label>PASSWORD</label><input type="password" placeholder="••••••••"></div>
-        <button class="modal-submit" onclick="demoSubmit('signin')">Sign in</button>
-        <div class="modal-note">Demo only — no real accounts are created or stored.</div>
+        <div class="form-group"><label>EMAIL</label><input type="email" id="signinEmail" placeholder="you@example.com"></div>
+        <div class="form-group"><label>PASSWORD</label><input type="password" id="signinPassword" placeholder="••••••••"></div>
+        <button class="modal-submit" id="signinBtn" onclick="submitSignin()">Sign in</button>
+        <div class="modal-note" id="signinNote">Enter your credentials to sign in.</div>
       </div>
       <div id="joinPane" style="display:none;">
-        <div class="form-group"><label>FULL NAME</label><input type="text" placeholder="Your name"></div>
-        <div class="form-group"><label>EMAIL</label><input type="email" placeholder="you@example.com"></div>
+        <div class="form-group"><label>FULL NAME</label><input type="text" id="joinName" placeholder="Your name"></div>
+        <div class="form-group"><label>EMAIL</label><input type="email" id="joinEmail" placeholder="you@example.com"></div>
+        <div class="form-group"><label>PASSWORD</label><input type="password" id="joinPassword" placeholder="••••••••"></div>
         <div class="tier-options" id="tierOptions"></div>
-        <button class="modal-submit" onclick="demoSubmit('join')">Join with selected plan</button>
-        <div class="modal-note">Demo only — no real payment is processed.</div>
+        <button class="modal-submit" id="joinBtn" onclick="submitJoin()">Join with selected plan</button>
+        <div class="modal-note" id="joinNote">Create your freelancer account.</div>
       </div>
     </div>
   </div>
 </div>
-
 <script>
+/* ============================================================
+   BACKEND CONFIG
+   Change this to your deployed backend URL when you go live.
+   While testing locally, keep it as http://localhost:3000
+   and make sure your NestJS server is running.
+   ============================================================ */
+const API_BASE = 'http://localhost:3000';
+
 const catalog = {
   webdev: [
     {id:'wp-01', sku:'ZWS-WP-01', name:'WordPress Business Site', badge:null,
@@ -491,9 +474,7 @@ const catalog = {
       tiers:{'Basic (up to 5 hrs/mo)':150,'Priority (up to 15 hrs/mo)':400}},
   ],
 };
-
 let cart = [];
-
 function renderGrid(sectionId, items){
   const grid = document.getElementById(sectionId + '-grid');
   grid.innerHTML = items.map(item => {
@@ -515,7 +496,6 @@ function renderGrid(sectionId, items){
         <button class="add-btn" id="btn-${item.id}" onclick="addToCart('${sectionId}','${item.id}')">Add to cart</button>
       </div>`;
   }).join('');
-
   items.forEach(item => {
     const select = document.getElementById(`tier-${item.id}`);
     select.addEventListener('change', () => {
@@ -526,7 +506,6 @@ function renderGrid(sectionId, items){
     });
   });
 }
-
 function addToCart(sectionId, itemId){
   const item = catalog[sectionId].find(i => i.id === itemId);
   const tier = document.getElementById(`tier-${itemId}`).value;
@@ -539,12 +518,10 @@ function addToCart(sectionId, itemId){
   renderCart();
   toggleCart(true);
 }
-
 function removeFromCart(cartId){
   cart = cart.filter(c => c.cartId !== cartId);
   renderCart();
 }
-
 function renderCart(){
   const wrap = document.getElementById('drawerItems');
   document.getElementById('cartCount').textContent = cart.length;
@@ -574,17 +551,14 @@ function renderCart(){
   const total = cart.reduce((sum,c) => sum + c.price, 0);
   document.getElementById('drawerTotal').textContent = '$' + total.toLocaleString();
 }
-
 function toggleCart(open){
   document.getElementById('drawer').classList.toggle('open', open);
   document.getElementById('overlay').classList.toggle('open', open);
 }
-
 function requestQuote(){
   if(cart.length === 0){ alert('Add at least one service before requesting a quote.'); return; }
   alert('Demo only — in the live version this would send your selected services to Interquark for a formal quote.');
 }
-
 document.getElementById('receiptDate').textContent = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 renderGrid('webdev', catalog.webdev);
 renderGrid('migrations', catalog.migrations);
@@ -593,7 +567,6 @@ renderGrid('growth', catalog.growth);
 renderGrid('saas', catalog.saas);
 renderGrid('retainer', catalog.retainer);
 renderCart();
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
@@ -607,7 +580,6 @@ document.querySelectorAll('[data-reveal]').forEach((el,i) => {
   el.style.transitionDelay = (i % 3) * 0.07 + 's';
   observer.observe(el);
 });
-
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const rect = card.getBoundingClientRect();
@@ -621,7 +593,6 @@ document.querySelectorAll('.card').forEach(card => {
     card.style.transform = 'translateY(0)';
   });
 });
-
 const receiptCard = document.getElementById('receiptCard');
 document.querySelector('.hero').addEventListener('mousemove', e => {
   const rect = receiptCard.getBoundingClientRect();
@@ -634,14 +605,12 @@ document.querySelector('.hero').addEventListener('mousemove', e => {
 document.querySelector('.hero').addEventListener('mouseleave', () => {
   receiptCard.style.transform = 'rotateY(-8deg) rotateX(4deg)';
 });
-
 const freelancerTiers = [
   {id:'associate', name:'Associate', desc:'Shadow one active project, chat access', price:29},
   {id:'core', name:'Core contributor', desc:'Assigned tasks on 1-2 projects, priority pick', price:79},
   {id:'lead', name:'Lead collaborator', desc:'Co-own a project, client-facing, revenue share', price:159},
 ];
 let selectedTier = 'core';
-
 function renderTiers(){
   const wrap = document.getElementById('tierOptions');
   wrap.innerHTML = freelancerTiers.map(t => `
@@ -651,14 +620,12 @@ function renderTiers(){
     </div>`).join('');
 }
 function selectTier(id){ selectedTier = id; renderTiers(); }
-
 function switchTab(tab){
   document.getElementById('tabSignin').classList.toggle('active', tab==='signin');
   document.getElementById('tabJoin').classList.toggle('active', tab==='join');
   document.getElementById('signinPane').style.display = tab==='signin' ? 'block' : 'none';
   document.getElementById('joinPane').style.display = tab==='join' ? 'block' : 'none';
 }
-
 function openJoinModal(){
   document.getElementById('joinOverlay').classList.add('open');
   renderTiers();
@@ -666,7 +633,6 @@ function openJoinModal(){
 function closeJoinModal(){
   document.getElementById('joinOverlay').classList.remove('open');
 }
-
 function submitContact(){
   const name = document.getElementById('contactName').value.trim();
   const email = document.getElementById('contactEmail').value.trim();
@@ -683,13 +649,11 @@ function submitContact(){
       <p class="modal-sub">Thanks, ${name} — this is a UI demo, so nothing was actually sent. In the live version, this would email your message straight to Interquark.</p>
     </div>`;
 }
-
 let chatOpen = false;
 function toggleChat(){
   chatOpen = !chatOpen;
   document.getElementById('chatPanel').classList.toggle('open', chatOpen);
 }
-
 const chatRules = [
   {keys:['price','cost','how much','budget'], reply:"Prices vary by service and tier — you can see live pricing on every card above. WordPress sites start around $300, while full SaaS platforms start around $5,000."},
   {keys:['time','long','fast','turnaround','deadline'], reply:"Timelines depend on scope — brochure sites usually take about a week, while full platform builds can take several weeks to a few months."},
@@ -704,7 +668,6 @@ const chatRules = [
   {keys:['contact','talk','human','call'], reply:"You can reach out directly using the Contact form near the bottom of the page, and I'll get back to you personally."},
   {keys:['hi','hello','hey'], reply:"Hey there! Ask me about pricing, timelines, or which service fits your project."},
 ];
-
 function botReply(text){
   const lower = text.toLowerCase();
   for(const rule of chatRules){
@@ -712,26 +675,22 @@ function botReply(text){
   }
   return "I don't have a scripted answer for that yet — this is a demo assistant. Try asking about pricing, timelines, or a specific service like Shopify or Magento.";
 }
-
 function sendChat(){
   const input = document.getElementById('chatInput');
   const text = input.value.trim();
   if(!text) return;
   const body = document.getElementById('chatBody');
-
   const userMsg = document.createElement('div');
   userMsg.className = 'msg user';
   userMsg.textContent = text;
   body.appendChild(userMsg);
   input.value = '';
   body.scrollTop = body.scrollHeight;
-
   const typing = document.createElement('div');
   typing.className = 'typing';
   typing.innerHTML = '<span></span><span></span><span></span>';
   body.appendChild(typing);
   body.scrollTop = body.scrollHeight;
-
   setTimeout(() => {
     typing.remove();
     const botMsg = document.createElement('div');
@@ -742,23 +701,102 @@ function sendChat(){
   }, 700 + Math.random()*500);
 }
 
-function demoSubmit(kind){
-  const tier = freelancerTiers.find(t => t.id === selectedTier);
-  const content = document.getElementById('modalContent');
-  if(kind === 'signin'){
-    content.innerHTML = `
+/* ============================================================
+   REAL AUTH — wired to your NestJS backend
+   Adjust field names below (name/email/password) if your
+   RegisterDto / LoginDto use different keys.
+   ============================================================ */
+async function submitSignin(){
+  const email = document.getElementById('signinEmail').value.trim();
+  const password = document.getElementById('signinPassword').value;
+  const note = document.getElementById('signinNote');
+  const btn = document.getElementById('signinBtn');
+
+  if(!email || !password){
+    note.textContent = 'Please fill in both fields.';
+    note.style.color = 'var(--accent)';
+    return;
+  }
+
+  btn.disabled = true;
+  note.textContent = 'Signing in...';
+  note.style.color = 'var(--text-faint)';
+
+  try {
+    const res = await fetch(`${API_BASE}/auth/login`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ email, password })
+    });
+
+    let data = {};
+    try { data = await res.json(); } catch(e) { /* non-JSON response */ }
+
+    if(!res.ok){
+      note.textContent = data.message || `Sign in failed (${res.status}).`;
+      note.style.color = 'var(--accent)';
+      btn.disabled = false;
+      return;
+    }
+
+    document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
         <div class="success-icon">✓</div>
-        <h2>Signed in (demo)</h2>
-        <p class="modal-sub">This is a UI demo — no real authentication happens here. In the live version, this would drop you into your freelancer dashboard.</p>
+        <h2>Signed in</h2>
+        <p class="modal-sub">Welcome back! You're now logged in.</p>
       </div>`;
-  } else {
-    content.innerHTML = `
+  } catch(err){
+    note.textContent = 'Could not reach the server. Is your NestJS backend running on ' + API_BASE + '?';
+    note.style.color = 'var(--accent)';
+    btn.disabled = false;
+  }
+}
+
+async function submitJoin(){
+  const name = document.getElementById('joinName').value.trim();
+  const email = document.getElementById('joinEmail').value.trim();
+  const password = document.getElementById('joinPassword').value;
+  const note = document.getElementById('joinNote');
+  const btn = document.getElementById('joinBtn');
+
+  if(!name || !email || !password){
+    note.textContent = 'Please fill in all fields.';
+    note.style.color = 'var(--accent)';
+    return;
+  }
+
+  btn.disabled = true;
+  note.textContent = 'Creating account...';
+  note.style.color = 'var(--text-faint)';
+
+  try {
+    const res = await fetch(`${API_BASE}/auth/register`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ name, email, password, tier: selectedTier })
+    });
+
+    let data = {};
+    try { data = await res.json(); } catch(e) { /* non-JSON response */ }
+
+    if(!res.ok){
+      note.textContent = data.message || `Registration failed (${res.status}).`;
+      note.style.color = 'var(--accent)';
+      btn.disabled = false;
+      return;
+    }
+
+    const tier = freelancerTiers.find(t => t.id === selectedTier);
+    document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
         <div class="success-icon">✓</div>
         <h2>Welcome to the studio</h2>
-        <p class="modal-sub">Demo only — no real payment was charged. In the live version, you'd be subscribed to the <b>${tier.name}</b> plan at $${tier.price}/month and matched to an active project.</p>
+        <p class="modal-sub">Your account was created on the <b>${tier.name}</b> plan.</p>
       </div>`;
+  } catch(err){
+    note.textContent = 'Could not reach the server. Is your NestJS backend running on ' + API_BASE + '?';
+    note.style.color = 'var(--accent)';
+    btn.disabled = false;
   }
 }
 </script>
@@ -766,7 +804,6 @@ function demoSubmit(kind){
   <span class="chat-dot"></span>
   💬
 </button>
-
 <div class="chat-panel" id="chatPanel">
   <div class="chat-head">
     <div class="chat-head-info">
@@ -784,6 +821,5 @@ function demoSubmit(kind){
   </div>
   <div class="chat-note">Demo assistant — scripted responses, not a live AI model.</div>
 </div>
-
 </body>
 </html>
