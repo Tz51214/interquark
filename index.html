@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -382,7 +382,7 @@
   <div class="drawer-foot">
     <div class="drawer-total"><span>Estimated total</span><span class="price mono" id="drawerTotal">$0</span></div>
     <button class="quote-btn" onclick="requestQuote()">Request this as a quote</button>
-    <div class="drawer-note">Demo cart — no payment is processed here.</div>
+    <div class="drawer-note">Submitting creates a real order. No payment is processed yet.</div>
   </div>
 </div>
 <div class="modal-overlay" id="joinOverlay" onclick="if(event.target===this)closeJoinModal()">
@@ -420,6 +420,11 @@
    and make sure your NestJS server is running.
    ============================================================ */
 const API_BASE = 'http://localhost:3000';
+ 
+/* Holds the logged-in user's JWT + basic info in memory for this session.
+   Resets on page reload — fine for local testing. */
+let authToken = null;
+let currentUser = null;
  
 const catalog = {
   webdev: [
@@ -555,9 +560,52 @@ function toggleCart(open){
   document.getElementById('drawer').classList.toggle('open', open);
   document.getElementById('overlay').classList.toggle('open', open);
 }
-function requestQuote(){
+async function requestQuote(){
   if(cart.length === 0){ alert('Add at least one service before requesting a quote.'); return; }
-  alert('Demo only — in the live version this would send your selected services to Interquark for a formal quote.');
+ 
+  if(!authToken){
+    alert('Please sign in or join as a freelancer first, then submit your cart as an order.');
+    openJoinModal();
+    return;
+  }
+ 
+  const quoteBtn = document.querySelector('.quote-btn');
+  const originalText = quoteBtn.textContent;
+  quoteBtn.disabled = true;
+  quoteBtn.textContent = 'Submitting order...';
+ 
+  try {
+    const res = await fetch(`${API_BASE}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify({
+        items: cart.map(c => ({ sku: c.sku, name: c.name, tier: c.tier, price: c.price }))
+      })
+    });
+ 
+    let data = {};
+    try { data = await res.json(); } catch(e) { /* non-JSON response */ }
+ 
+    if(!res.ok){
+      alert(data.message || `Could not submit order (${res.status}).`);
+      quoteBtn.disabled = false;
+      quoteBtn.textContent = originalText;
+      return;
+    }
+ 
+    cart = [];
+    renderCart();
+    toggleCart(false);
+    alert(`Order #${data.id} submitted! Total: $${Number(data.totalAmount).toLocaleString()}. We'll be in touch shortly.`);
+  } catch(err){
+    alert('Could not reach the server. Is your NestJS backend running on ' + API_BASE + '?');
+  } finally {
+    quoteBtn.disabled = false;
+    quoteBtn.textContent = originalText;
+  }
 }
 document.getElementById('receiptDate').textContent = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 renderGrid('webdev', catalog.webdev);
@@ -739,12 +787,17 @@ async function submitSignin(){
       return;
     }
  
+    authToken = data.accessToken;
+    currentUser = data.user;
+ 
     document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
         <div class="success-icon">✓</div>
         <h2>Signed in</h2>
-        <p class="modal-sub">Welcome back! You're now logged in.</p>
+        <p class="modal-sub">Welcome back, ${currentUser.fullName || currentUser.email}!</p>
       </div>`;
+ 
+    setTimeout(() => { closeJoinModal(); }, 1200);
   } catch(err){
     note.textContent = 'Could not reach the server. Is your NestJS backend running on ' + API_BASE + '?';
     note.style.color = 'var(--accent)';
@@ -787,12 +840,30 @@ async function submitJoin(){
     }
  
     const tier = freelancerTiers.find(t => t.id === selectedTier);
+ 
+    // Registration succeeded — log them straight in so they don't have
+    // to re-enter credentials on the Sign in tab.
+    try {
+      const loginRes = await fetch(`${API_BASE}/auth/login`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, password })
+      });
+      const loginData = await loginRes.json();
+      if(loginRes.ok){
+        authToken = loginData.accessToken;
+        currentUser = loginData.user;
+      }
+    } catch(e) { /* non-fatal — they can sign in manually if this fails */ }
+ 
     document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
         <div class="success-icon">✓</div>
         <h2>Welcome to the studio</h2>
         <p class="modal-sub">Your account was created on the <b>${tier.name}</b> plan.</p>
       </div>`;
+ 
+    setTimeout(() => { closeJoinModal(); }, 1200);
   } catch(err){
     note.textContent = 'Could not reach the server. Is your NestJS backend running on ' + API_BASE + '?';
     note.style.color = 'var(--accent)';
@@ -823,4 +894,3 @@ async function submitJoin(){
 </div>
 </body>
 </html>
- 
