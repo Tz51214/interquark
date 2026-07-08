@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zahra Web Studio — Ecommerce & SaaS Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --bg-alt:#F7F8FA;
+    --card:#FFFFFF;
+    --border:#E7E9EE;
+    --border-strong:#D6DAE2;
+    --primary:#2A5ADB;
+    --primary-dark:#1E44AE;
+    --accent:#F2994A;
+    --text:#1E2430;
+    --text-dim:#5B6472;
+    --text-faint:#8A93A3;
+    --radius:10px;
+    --shadow:0 2px 10px rgba(20,28,46,0.06);
+    --shadow-md:0 8px 24px rgba(20,28,46,0.09);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Poppins',sans-serif;}
+  .mono{font-family:'Roboto Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--primary);color:#fff;}
+
+  header{
+    position:sticky;top:0;z-index:40;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;background:rgba(255,255,255,0.96);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{display:flex;align-items:center;gap:11px;}
+  .logo-mark{
+    width:36px;height:36px;border-radius:8px;background:var(--primary);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    font-weight:700;font-family:'Poppins',sans-serif;font-size:15px;
+  }
+  .logo-text{font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;color:var(--text);}
+  .logo-text span{display:block;font-family:'Inter',sans-serif;font-size:11px;color:var(--text-faint);font-weight:400;margin-top:1px;}
+  nav{display:flex;gap:30px;font-size:14.5px;color:var(--text-dim);}
+  nav a{transition:color .15s;}
+  nav a:hover{color:var(--primary);}
+  .header-actions{display:flex;gap:12px;align-items:center;}
+  .btn-outline{
+    border:1px solid var(--border-strong);background:#fff;color:var(--text);
+    padding:9px 18px;border-radius:8px;font-size:13.5px;font-weight:600;cursor:pointer;
+    transition:border-color .15s,color .15s;
+  }
+  .btn-outline:hover{border-color:var(--primary);color:var(--primary);}
+  .btn-primary{
+    display:flex;align-items:center;gap:8px;
+    background:var(--primary);color:#fff;border:none;
+    padding:10px 20px;border-radius:8px;cursor:pointer;
+    font-size:13.5px;font-weight:600;
+    box-shadow:0 4px 0 var(--primary-dark),0 6px 14px rgba(42,90,219,0.3);
+    transition:background .15s, transform .1s, box-shadow .1s;
+  }
+  .btn-primary:hover{background:var(--primary-dark);}
+  .btn-primary:active{transform:translateY(3px);box-shadow:0 1px 0 var(--primary-dark),0 2px 6px rgba(42,90,219,0.3);}
+  .cart-count{
+    background:rgba(255,255,255,0.25);border-radius:999px;min-width:18px;height:18px;
+    display:flex;align-items:center;justify-content:center;font-size:11px;
+  }
+
+  .hero{
+    max-width:1200px;margin:0 auto;padding:80px 40px 60px;
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;
+    position:relative;
+  }
+  .float-shape{
+    position:absolute;border-radius:16px;pointer-events:none;z-index:0;
+    animation:floaty 7s ease-in-out infinite;
+  }
+  .float-shape.s1{width:64px;height:64px;background:linear-gradient(135deg,var(--primary),#5B7FEA);border-radius:16px;top:6%;right:34%;--r:18deg;transform:rotate(18deg);box-shadow:0 20px 40px rgba(42,90,219,0.28);animation-delay:0s;}
+  .float-shape.s2{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),#F7B677);border-radius:50%;top:60%;right:4%;--r:0deg;box-shadow:0 16px 32px rgba(242,153,74,0.3);animation-delay:1.2s;}
+  .float-shape.s3{width:30px;height:30px;background:#fff;border:1px solid var(--border-strong);border-radius:8px;top:14%;left:2%;--r:-12deg;transform:rotate(-12deg);box-shadow:0 12px 24px rgba(20,28,46,0.1);animation-delay:2.4s;}
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-16px) rotate(var(--r,0deg));}}
+
+  .receipt-3d-wrap{perspective:1200px;}
+  .eyebrow{
+    font-size:13px;color:var(--primary);font-weight:600;letter-spacing:0.5px;
+    text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:'';width:18px;height:2px;background:var(--primary);border-radius:2px;}
+  .hero h1{font-size:clamp(34px,4.4vw,50px);line-height:1.15;font-weight:700;margin:0 0 20px;color:var(--text);}
+  .hero h1 em{font-style:normal;color:var(--primary);}
+  .hero p{color:var(--text-dim);font-size:16.5px;line-height:1.7;max-width:460px;margin:0 0 28px;}
+  .hero-ctas{display:flex;gap:14px;}
+  .btn-lg{padding:13px 26px;font-size:14.5px;border-radius:8px;}
+
+  .receipt{
+    position:relative;
+    background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+    box-shadow:0 30px 60px -12px rgba(20,28,46,0.25),0 12px 24px rgba(20,28,46,0.08);
+    transform-style:preserve-3d;transform:rotateY(-8deg) rotateX(4deg);
+    transition:transform .4s cubic-bezier(.2,.8,.3,1);
+  }
+  .receipt::before{
+    content:'';position:absolute;inset:0;border-radius:14px;
+    background:linear-gradient(135deg,rgba(255,255,255,0.5),transparent 40%);
+    pointer-events:none;
+  }
+  .receipt-head{padding:16px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;color:var(--text-faint);font-size:12px;background:var(--bg-alt);}
+  .receipt-body{padding:16px 22px;min-height:140px;}
+  .rline{display:flex;justify-content:space-between;padding:9px 0;color:var(--text-dim);border-bottom:1px dashed var(--border);font-size:13.5px;}
+  .rline b{color:var(--text);font-weight:600;}
+  .rline .amt{color:var(--accent);font-family:'Roboto Mono',monospace;}
+  .receipt-empty{color:var(--text-faint);text-align:center;padding:28px 0;font-size:13px;}
+
+  .strip{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;overflow:hidden;}
+  .strip-track{display:flex;gap:44px;white-space:nowrap;animation:scroll 28s linear infinite;width:max-content;}
+  .strip-track span{font-size:13px;color:var(--text-faint);font-weight:500;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  section{max-width:1200px;margin:0 auto;padding:76px 40px;}
+  .section-head{text-align:center;margin-bottom:44px;}
+  .section-head .eyebrow{justify-content:center;}
+  .section-head .eyebrow::before{display:none;}
+  .section-head h2{font-size:clamp(26px,3vw,34px);font-weight:700;margin:0 0 10px;color:var(--text);}
+  .section-head p{color:var(--text-dim);font-size:15.5px;max-width:520px;margin:0 auto;}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;perspective:1000px;}
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:26px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow);
+    transition:box-shadow .2s,border-color .2s,transform .15s ease-out;
+    opacity:0;transform:translateY(18px);
+    transform-style:preserve-3d;will-change:transform;
+  }
+  .card.in-view{opacity:1;}
+  .card:hover{box-shadow:var(--shadow-md);border-color:var(--border-strong);transform:translateY(-3px);}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .sku{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--text-faint);}
+  .badge{font-size:10.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:#EAF0FE;color:var(--primary);}
+  .badge.flagship{background:#FDEEE1;color:#C4691B;}
+  .card h3{font-size:17.5px;margin:0;font-weight:600;color:var(--text);}
+  .card p{font-size:13.5px;color:var(--text-dim);line-height:1.6;margin:0;flex-grow:1;}
+  select.tier{
+    width:100%;background:#fff;border:1px solid var(--border-strong);color:var(--text);
+    padding:10px 12px;border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .price-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;}
+  .price-label{font-size:10.5px;color:var(--text-faint);font-weight:600;letter-spacing:0.5px;}
+  .price{font-family:'Roboto Mono',monospace;font-size:20px;color:var(--primary);font-weight:700;}
+  .add-btn{
+    background:var(--text);color:#fff;border:none;border-radius:8px;
+    padding:11px 16px;font-weight:600;font-size:13.5px;cursor:pointer;width:100%;
+    transition:background .15s;
+  }
+  .add-btn:hover{background:var(--primary);}
+  .add-btn.added{background:#EAF0FE;color:var(--primary);}
+
+  .overlay{position:fixed;inset:0;background:rgba(20,28,46,0.45);z-index:60;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .overlay.open{opacity:1;pointer-events:auto;}
+  .drawer{
+    position:fixed;top:0;right:-420px;width:400px;height:100%;background:#fff;
+    border-left:1px solid var(--border);z-index:61;box-shadow:-8px 0 30px rgba(20,28,46,0.1);
+    display:flex;flex-direction:column;transition:right .3s ease;
+  }
+  .drawer.open{right:0;}
+  .drawer-head{padding:22px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+  .drawer-head h3{margin:0;font-size:16px;font-weight:600;}
+  .close-btn{background:none;border:1px solid var(--border);color:var(--text-dim);width:30px;height:30px;border-radius:50%;font-size:15px;cursor:pointer;}
+  .drawer-items{flex-grow:1;overflow-y:auto;padding:16px 24px;}
+  .empty-cart{color:var(--text-faint);font-size:13.5px;text-align:center;padding:60px 20px;}
+  .item{display:flex;justify-content:space-between;gap:10px;padding:14px 0;border-bottom:1px solid var(--border);}
+  .item-info b{display:block;font-size:13.5px;font-weight:600;}
+  .item-info span{font-size:12px;color:var(--text-faint);}
+  .item-price{font-family:'Roboto Mono',monospace;font-size:13.5px;color:var(--primary);white-space:nowrap;}
+  .remove{background:none;border:none;color:var(--text-faint);font-size:11px;cursor:pointer;text-decoration:underline;padding:0;margin-top:4px;}
+  .drawer-foot{padding:20px 24px;border-top:1px solid var(--border);}
+  .drawer-total{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:16px;}
+  .drawer-total .price{font-size:19px;}
+  .quote-btn{width:100%;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:13px;font-weight:600;font-size:14px;cursor:pointer;}
+  .quote-btn:hover{background:var(--primary-dark);}
+  .drawer-note{font-size:11px;color:var(--text-faint);text-align:center;margin-top:10px;}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(20,28,46,0.45);z-index:70;opacity:0;pointer-events:none;transition:opacity .25s;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal{width:100%;max-width:440px;max-height:88vh;overflow-y:auto;background:#fff;border-radius:14px;padding:32px;position:relative;box-shadow:0 20px 60px rgba(20,28,46,0.2);
+    transform:translateY(12px);opacity:0;transition:transform .3s,opacity .3s;}
+  .modal-overlay.open .modal{transform:translateY(0);opacity:1;}
+  .modal-close{position:absolute;top:18px;right:18px;background:none;border:1px solid var(--border);color:var(--text-dim);width:30px;height:30px;border-radius:50%;font-size:15px;cursor:pointer;}
+  .modal h2{font-size:21px;margin:0 0 6px;font-weight:700;}
+  .modal .modal-sub{color:var(--text-dim);font-size:13.5px;margin:0 0 22px;line-height:1.5;}
+  .tabs{display:flex;gap:4px;background:var(--bg-alt);border:1px solid var(--border);border-radius:999px;padding:4px;margin-bottom:24px;}
+  .tab{flex:1;text-align:center;padding:9px 0;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-dim);}
+  .tab.active{background:var(--text);color:#fff;}
+  .form-group{margin-bottom:15px;}
+  .form-group label{display:block;font-size:12px;color:var(--text-faint);margin-bottom:6px;font-weight:600;}
+  .form-group input{width:100%;background:#fff;border:1px solid var(--border-strong);color:var(--text);padding:11px 13px;border-radius:8px;font-size:14px;}
+  .form-group input:focus{outline:none;border-color:var(--primary);}
+  .tier-options{display:flex;flex-direction:column;gap:9px;margin-bottom:20px;}
+  .tier-card{border:1px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:border-color .15s,background .15s;}
+  .tier-card.selected{border-color:var(--primary);background:#EAF0FE;}
+  .tier-info b{display:block;font-size:14px;font-weight:600;}
+  .tier-info span{font-size:11.5px;color:var(--text-faint);}
+  .tier-price{font-family:'Roboto Mono',monospace;font-size:14px;color:var(--primary);font-weight:700;white-space:nowrap;}
+  .tier-price small{display:block;font-size:10px;color:var(--text-faint);font-weight:400;text-align:right;}
+  .modal-submit{width:100%;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:13px;font-weight:600;font-size:14px;cursor:pointer;}
+  .modal-submit:hover{background:var(--primary-dark);}
+  .modal-note{font-size:11px;color:var(--text-faint);text-align:center;margin-top:12px;}
+  .success-state{text-align:center;padding:16px 0;}
+  .success-icon{width:52px;height:52px;border-radius:50%;background:#EAF0FE;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:22px;color:var(--primary);}
+
+  footer{border-top:1px solid var(--border);padding:36px 40px;text-align:center;color:var(--text-faint);font-size:13px;background:var(--bg-alt);}
+
+  .chat-fab{
+    position:fixed;bottom:26px;right:26px;z-index:80;
+    width:58px;height:58px;border-radius:50%;background:var(--primary);color:#fff;
+    border:none;cursor:pointer;box-shadow:0 8px 24px rgba(42,90,219,0.35);
+    display:flex;align-items:center;justify-content:center;font-size:24px;
+    transition:transform .2s,background .2s;
+  }
+  .chat-fab:hover{transform:scale(1.06);background:var(--primary-dark);}
+  .chat-dot{position:absolute;top:6px;right:6px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid #fff;}
+
+  .chat-panel{
+    position:fixed;bottom:96px;right:26px;z-index:80;width:340px;height:440px;
+    background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(20,28,46,0.2);
+    display:flex;flex-direction:column;overflow:hidden;
+    transform:translateY(16px) scale(0.97);opacity:0;pointer-events:none;transition:transform .25s,opacity .25s;
+  }
+  .chat-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  .chat-head{background:var(--primary);color:#fff;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
+  .chat-head-info{display:flex;align-items:center;gap:10px;}
+  .chat-avatar{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
+  .chat-head b{display:block;font-size:13.5px;}
+  .chat-head span{font-size:11px;opacity:0.85;}
+  .chat-close{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;opacity:0.85;}
+  .chat-body{flex-grow:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg-alt);}
+  .msg{max-width:80%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5;}
+  .msg.bot{background:#fff;border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:3px;}
+  .msg.user{background:var(--primary);color:#fff;align-self:flex-end;border-bottom-right-radius:3px;}
+  .typing{display:flex;gap:4px;padding:9px 13px;background:#fff;border:1px solid var(--border);border-radius:12px;border-bottom-left-radius:3px;align-self:flex-start;width:fit-content;}
+  .typing span{width:6px;height:6px;border-radius:50%;background:var(--text-faint);animation:bounce 1.2s infinite;}
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);}}
+  .chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);background:#fff;}
+  .chat-input-row input{flex-grow:1;border:1px solid var(--border-strong);border-radius:999px;padding:9px 14px;font-size:13px;font-family:'Inter',sans-serif;}
+  .chat-input-row input:focus{outline:none;border-color:var(--primary);}
+  .chat-send{background:var(--primary);color:#fff;border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;flex-shrink:0;}
+  .chat-note{font-size:10px;color:var(--text-faint);text-align:center;padding:6px 12px 10px;background:#fff;}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;padding-top:44px;}
+    .grid{grid-template-columns:1fr;}
+    nav{display:none;}
+    .drawer{width:100%;right:-100%;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">Z</div>
+    <div class="logo-text">Zahra Web Studio<span>ecommerce &amp; saas development</span></div>
+  </div>
+  <nav>
+    <a href="#webdev">Web Dev</a>
+    <a href="#migrations">Migrations</a>
+    <a href="#security">Security</a>
+    <a href="#growth">Growth</a>
+    <a href="#saas">SaaS / ERP</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-actions">
+    <button class="btn-outline" onclick="openJoinModal()">Join as freelancer</button>
+    <button class="btn-primary" id="cartFab" onclick="toggleCart(true)">
+      <span>Cart</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<div class="hero">
+  <div>
+    <div class="eyebrow">Since 2019</div>
+    <h1>Ecommerce builds and <em>SaaS platforms</em>, sold by the SKU.</h1>
+    <p>I build stores for a living, so mine works like one. Pick a service, choose a tier, and get a running estimate instantly. No forms, no back-and-forth to get a starting number.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary btn-lg" onclick="document.getElementById('webdev').scrollIntoView()">Browse services</button>
+      <button class="btn-outline btn-lg" onclick="toggleCart(true)">View cart</button>
+    </div>
+  </div>
+  <div class="float-shape s1"></div>
+  <div class="float-shape s2"></div>
+  <div class="float-shape s3"></div>
+  <div class="receipt-3d-wrap">
+    <div class="receipt" id="receiptCard">
+      <div class="receipt-head"><span>ZWS-0001</span><span id="receiptDate"></span></div>
+      <div class="receipt-body" id="receiptBody">
+        <div class="receipt-empty">Add a service below —<br>your estimate appears here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>Magento 2</span><span>Adobe Commerce</span><span>Shopify</span><span>WooCommerce</span><span>WordPress</span><span>AWS</span><span>Cloudflare</span><span>PHP</span><span>React</span><span>Node.js</span>
+    <span>Magento 2</span><span>Adobe Commerce</span><span>Shopify</span><span>WooCommerce</span><span>WordPress</span><span>AWS</span><span>Cloudflare</span><span>PHP</span><span>React</span><span>Node.js</span>
+  </div>
+</div>
+
+<section id="webdev">
+  <div class="section-head">
+    <div class="eyebrow">Web Development</div>
+    <h2>Web dev packages</h2>
+    <p>Full builds across the platforms you already know and trust.</p>
+  </div>
+  <div class="grid" id="webdev-grid"></div>
+</section>
+
+<section id="migrations">
+  <div class="section-head">
+    <div class="eyebrow">Migrations &amp; Integrations</div>
+    <h2>Migrations &amp; integrations</h2>
+    <p>Moving platforms or adding payments, without losing rankings or breaking checkout.</p>
+  </div>
+  <div class="grid" id="migrations-grid"></div>
+</section>
+
+<section id="security" style="background:var(--bg-alt);max-width:none;padding-left:0;padding-right:0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
+    <div class="section-head">
+      <div class="eyebrow">Security</div>
+      <h2>Security &amp; remediation</h2>
+      <p>Fast, careful cleanup when something's gone wrong.</p>
+    </div>
+    <div class="grid" id="security-grid"></div>
+  </div>
+</section>
+
+<section id="growth">
+  <div class="section-head">
+    <div class="eyebrow">Growth &amp; Compliance</div>
+    <h2>Growth &amp; compliance</h2>
+    <p>Getting unblocked on Google, and making the store itself faster.</p>
+  </div>
+  <div class="grid" id="growth-grid"></div>
+</section>
+
+<section id="saas">
+  <div class="section-head">
+    <div class="eyebrow">Platforms</div>
+    <h2>SaaS / ERP platforms</h2>
+    <p>Custom multi-tenant platforms built to run your business, or resell to your own clients.</p>
+  </div>
+  <div class="grid" id="saas-grid"></div>
+</section>
+
+<section id="retainer" style="background:var(--bg-alt);max-width:none;padding-left:0;padding-right:0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
+    <div class="section-head">
+      <div class="eyebrow">Ongoing</div>
+      <h2>Maintenance retainer</h2>
+      <p>For stores that need someone on call, not just a one-time fix.</p>
+    </div>
+    <div class="grid" id="retainer-grid" style="grid-template-columns:repeat(3,1fr);"></div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--bg-alt);max-width:none;padding-left:0;padding-right:0;">
+  <div style="max-width:720px;margin:0 auto;padding:0 40px;">
+    <div class="section-head">
+      <div class="eyebrow">Contact</div>
+      <h2>Get in touch</h2>
+      <p>Have a project that doesn't fit neatly into a SKU above? Send a message and I'll get back to you directly.</p>
+    </div>
+    <div id="contactFormWrap" style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:32px;box-shadow:var(--shadow);">
+      <div class="form-group"><label>NAME</label><input type="text" id="contactName" placeholder="Your name"></div>
+      <div class="form-group"><label>EMAIL</label><input type="email" id="contactEmail" placeholder="you@example.com"></div>
+      <div class="form-group">
+        <label>MESSAGE</label>
+        <textarea id="contactMessage" rows="5" placeholder="Tell me a bit about your project..." style="width:100%;background:#fff;border:1px solid var(--border-strong);color:var(--text);padding:11px 13px;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
+      </div>
+      <button class="modal-submit" onclick="submitContact()">Send message</button>
+      <div class="modal-note" id="contactNote">Demo only — no message is actually sent from this form yet.</div>
+    </div>
+  </div>
+</section>
+
+<footer>ZAHRA WEB STUDIO — @zahra.webstudio.co — DEMO STOREFRONT, NO LIVE PAYMENTS</footer>
+
+<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button class="close-btn" onclick="toggleCart(false)">&times;</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span>Estimated total</span><span class="price mono" id="drawerTotal">$0</span></div>
+    <button class="quote-btn" onclick="requestQuote()">Request this as a quote</button>
+    <div class="drawer-note">Demo cart — no payment is processed here.</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="joinOverlay" onclick="if(event.target===this)closeJoinModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeJoinModal()">&times;</button>
+    <div id="modalContent">
+      <h2>Join the studio</h2>
+      <p class="modal-sub">Sign in to an existing account, or join as a freelancer with a monthly seat on active projects.</p>
+      <div class="tabs">
+        <div class="tab active" id="tabSignin" onclick="switchTab('signin')">Sign in</div>
+        <div class="tab" id="tabJoin" onclick="switchTab('join')">Join as freelancer</div>
+      </div>
+      <div id="signinPane">
+        <div class="form-group"><label>EMAIL</label><input type="email" placeholder="you@example.com"></div>
+        <div class="form-group"><label>PASSWORD</label><input type="password" placeholder="••••••••"></div>
+        <button class="modal-submit" onclick="demoSubmit('signin')">Sign in</button>
+        <div class="modal-note">Demo only — no real accounts are created or stored.</div>
+      </div>
+      <div id="joinPane" style="display:none;">
+        <div class="form-group"><label>FULL NAME</label><input type="text" placeholder="Your name"></div>
+        <div class="form-group"><label>EMAIL</label><input type="email" placeholder="you@example.com"></div>
+        <div class="tier-options" id="tierOptions"></div>
+        <button class="modal-submit" onclick="demoSubmit('join')">Join with selected plan</button>
+        <div class="modal-note">Demo only — no real payment is processed.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const catalog = {
+  webdev: [
+    {id:'wp-01', sku:'ZWS-WP-01', name:'WordPress Business Site', badge:null,
+      desc:'6–8 page brochure site, mobile-responsive, contact forms, basic SEO. Clean and fast.',
+      tiers:{'Standard (7 days)':300,'Rush (3 days)':450}},
+    {id:'wc-01', sku:'ZWS-WC-01', name:'WooCommerce Store Build', badge:null,
+      desc:'Full store setup: catalog, payments, shipping rules, and a theme customized to your brand.',
+      tiers:{'Standard':600,'With custom theme dev':950}},
+    {id:'sh-01', sku:'ZWS-SH-01', name:'Shopify Store Build', badge:null,
+      desc:'Store setup, product catalog, payment gateway, and app integrations for dropshipping or D2C.',
+      tiers:{'Standard theme':800,'Custom theme build':1400}},
+    {id:'mg-01', sku:'ZWS-MG-01', name:'Magento 2 / Adobe Commerce Build', badge:'flagship',
+      desc:'Full enterprise build: custom theme, payment gateways (Braintree, Stripe, JazzCash, Easypaisa), AWS infra.',
+      tiers:{'Starter store':2500,'Full enterprise build':6000}},
+  ],
+  security: [
+    {id:'sec-01', sku:'ZWS-SEC-01', name:'Magecart Remediation & Audit', badge:'flagship',
+      desc:'Full skimmer detection, malicious code removal, checkout integrity check, and hardening report.',
+      tiers:{'Standard audit':250,'Emergency (24–48hr)':450}},
+    {id:'sec-02', sku:'ZWS-SEC-02', name:'Malware Removal & Hardening', badge:null,
+      desc:'Clean infected core files and plugins, patch vulnerabilities, and lock down admin access.',
+      tiers:{'Standard':200,'With ongoing monitoring':350}},
+  ],
+  migrations: [
+    {id:'mig-01', sku:'ZWS-MIG-01', name:'Payment Gateway Integration', badge:null,
+      desc:'Add or fix a payment gateway (Stripe, Braintree, JazzCash, Easypaisa, Elavon/Converge) on your existing store.',
+      tiers:{'Single gateway':200,'Multi-gateway + conditional rules':450}},
+    {id:'mig-02', sku:'ZWS-MIG-02', name:'Platform Migration & SEO Preservation', badge:'flagship',
+      desc:'Move between WooCommerce, Shopify, or WordPress with full 301 redirects and a URL mapping file, so rankings survive the move.',
+      tiers:{'Under 150 products':350,'150+ products':700}},
+  ],
+  growth: [
+    {id:'gro-01', sku:'ZWS-GRO-01', name:'Google Merchant Center Suspension Resolution', badge:'flagship',
+      desc:'Diagnose the policy violation, fix the root cause, and submit a documented reinstatement request.',
+      tiers:{'Diagnosis + first appeal':500,'With follow-up appeal support':750}},
+    {id:'gro-02', sku:'ZWS-GRO-02', name:'Server & Performance Optimization', badge:null,
+      desc:'Cloudflare/AWS tuning, caching, and database optimization to speed up a slow or overloaded store.',
+      tiers:{'Standard tune-up':300,'Full infra review':600}},
+  ],
+  saas: [
+    {id:'saas-01', sku:'ZWS-SAAS-01', name:'Multi-Tenant SaaS / ERP Platform', badge:'flagship',
+      desc:'Custom-built multi-tenant platform: RBAC, ledger and invoicing, admin dashboard, and API layer.',
+      tiers:{'Starter (single module)':5000,'Full platform build':12000}},
+    {id:'saas-02', sku:'ZWS-SAAS-02', name:'White-Label Ordering Platform', badge:null,
+      desc:'Storefront and admin dashboard for restaurants or retail, branded for resale to your own clients.',
+      tiers:{'Single-tenant license':3000,'Multi-tenant white-label':7500}},
+  ],
+  retainer: [
+    {id:'ret-01', sku:'ZWS-RET-01', name:'Store Maintenance Retainer', badge:'flagship',
+      desc:'Ongoing fixes, small feature additions, security monitoring, and priority response — billed monthly.',
+      tiers:{'Basic (up to 5 hrs/mo)':150,'Priority (up to 15 hrs/mo)':400}},
+  ],
+};
+
+let cart = [];
+
+function renderGrid(sectionId, items){
+  const grid = document.getElementById(sectionId + '-grid');
+  grid.innerHTML = items.map(item => {
+    const tierNames = Object.keys(item.tiers);
+    const options = tierNames.map(t => `<option value="${t}">${t} — $${item.tiers[t].toLocaleString()}</option>`).join('');
+    return `
+      <div class="card" data-reveal>
+        <div class="card-top">
+          <span class="sku mono">${item.sku}</span>
+          ${item.badge === 'flagship' ? '<span class="badge flagship">FLAGSHIP</span>' : '<span class="badge">AVAILABLE</span>'}
+        </div>
+        <h3>${item.name}</h3>
+        <p>${item.desc}</p>
+        <select class="tier" id="tier-${item.id}">${options}</select>
+        <div class="price-row">
+          <span class="price-label">PRICE</span>
+          <span class="price mono" id="price-${item.id}">$${item.tiers[tierNames[0]].toLocaleString()}</span>
+        </div>
+        <button class="add-btn" id="btn-${item.id}" onclick="addToCart('${sectionId}','${item.id}')">Add to cart</button>
+      </div>`;
+  }).join('');
+
+  items.forEach(item => {
+    const select = document.getElementById(`tier-${item.id}`);
+    select.addEventListener('change', () => {
+      document.getElementById(`price-${item.id}`).textContent = '$' + item.tiers[select.value].toLocaleString();
+      const btn = document.getElementById(`btn-${item.id}`);
+      btn.textContent = 'Add to cart';
+      btn.classList.remove('added');
+    });
+  });
+}
+
+function addToCart(sectionId, itemId){
+  const item = catalog[sectionId].find(i => i.id === itemId);
+  const tier = document.getElementById(`tier-${itemId}`).value;
+  const price = item.tiers[tier];
+  cart.push({name:item.name, sku:item.sku, tier, price, cartId: Date.now()+Math.random()});
+  const btn = document.getElementById(`btn-${itemId}`);
+  btn.textContent = 'Added ✓';
+  btn.classList.add('added');
+  setTimeout(()=>{ btn.textContent='Add to cart'; btn.classList.remove('added'); }, 1400);
+  renderCart();
+  toggleCart(true);
+}
+
+function removeFromCart(cartId){
+  cart = cart.filter(c => c.cartId !== cartId);
+  renderCart();
+}
+
+function renderCart(){
+  const wrap = document.getElementById('drawerItems');
+  document.getElementById('cartCount').textContent = cart.length;
+  if(cart.length === 0){
+    wrap.innerHTML = '<div class="empty-cart">Your cart is empty.<br>Pick a service to get a running estimate.</div>';
+  } else {
+    wrap.innerHTML = cart.map(c => `
+      <div class="item">
+        <div class="item-info">
+          <b>${c.name}</b>
+          <span>${c.sku} — ${c.tier}</span>
+          <button class="remove" onclick="removeFromCart(${c.cartId})">Remove</button>
+        </div>
+        <div class="item-price">$${c.price.toLocaleString()}</div>
+      </div>`).join('');
+  }
+  const receiptBody = document.getElementById('receiptBody');
+  if(cart.length === 0){
+    receiptBody.innerHTML = '<div class="receipt-empty">Add a service below —<br>your estimate appears here.</div>';
+  } else {
+    receiptBody.innerHTML = cart.map(c => `
+      <div class="rline">
+        <span>${c.name} <span style="color:var(--text-faint)">(${c.tier})</span></span>
+        <b class="amt">$${c.price.toLocaleString()}</b>
+      </div>`).join('');
+  }
+  const total = cart.reduce((sum,c) => sum + c.price, 0);
+  document.getElementById('drawerTotal').textContent = '$' + total.toLocaleString();
+}
+
+function toggleCart(open){
+  document.getElementById('drawer').classList.toggle('open', open);
+  document.getElementById('overlay').classList.toggle('open', open);
+}
+
+function requestQuote(){
+  if(cart.length === 0){ alert('Add at least one service before requesting a quote.'); return; }
+  alert('Demo only — in the live version this would send your selected services to Zahra Web Studio for a formal quote.');
+}
+
+document.getElementById('receiptDate').textContent = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+renderGrid('webdev', catalog.webdev);
+renderGrid('migrations', catalog.migrations);
+renderGrid('security', catalog.security);
+renderGrid('growth', catalog.growth);
+renderGrid('saas', catalog.saas);
+renderGrid('retainer', catalog.retainer);
+renderCart();
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in-view');
+      entry.target.style.transform = 'translateY(0)';
+      observer.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.15});
+document.querySelectorAll('[data-reveal]').forEach((el,i) => {
+  el.style.transitionDelay = (i % 3) * 0.07 + 's';
+  observer.observe(el);
+});
+
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+    card.style.transform = `translateY(-3px) perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(0)';
+  });
+});
+
+const receiptCard = document.getElementById('receiptCard');
+document.querySelector('.hero').addEventListener('mousemove', e => {
+  const rect = receiptCard.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+  const dx = (e.clientX - cx) / rect.width;
+  const dy = (e.clientY - cy) / rect.height;
+  receiptCard.style.transform = `rotateY(${-8 + dx*10}deg) rotateX(${4 - dy*10}deg)`;
+});
+document.querySelector('.hero').addEventListener('mouseleave', () => {
+  receiptCard.style.transform = 'rotateY(-8deg) rotateX(4deg)';
+});
+
+const freelancerTiers = [
+  {id:'associate', name:'Associate', desc:'Shadow one active project, chat access', price:29},
+  {id:'core', name:'Core contributor', desc:'Assigned tasks on 1-2 projects, priority pick', price:79},
+  {id:'lead', name:'Lead collaborator', desc:'Co-own a project, client-facing, revenue share', price:159},
+];
+let selectedTier = 'core';
+
+function renderTiers(){
+  const wrap = document.getElementById('tierOptions');
+  wrap.innerHTML = freelancerTiers.map(t => `
+    <div class="tier-card ${t.id===selectedTier?'selected':''}" onclick="selectTier('${t.id}')">
+      <div class="tier-info"><b>${t.name}</b><span>${t.desc}</span></div>
+      <div class="tier-price">$${t.price}<small>/month</small></div>
+    </div>`).join('');
+}
+function selectTier(id){ selectedTier = id; renderTiers(); }
+
+function switchTab(tab){
+  document.getElementById('tabSignin').classList.toggle('active', tab==='signin');
+  document.getElementById('tabJoin').classList.toggle('active', tab==='join');
+  document.getElementById('signinPane').style.display = tab==='signin' ? 'block' : 'none';
+  document.getElementById('joinPane').style.display = tab==='join' ? 'block' : 'none';
+}
+
+function openJoinModal(){
+  document.getElementById('joinOverlay').classList.add('open');
+  renderTiers();
+}
+function closeJoinModal(){
+  document.getElementById('joinOverlay').classList.remove('open');
+}
+
+function submitContact(){
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const message = document.getElementById('contactMessage').value.trim();
+  if(!name || !email || !message){
+    document.getElementById('contactNote').textContent = 'Please fill in all fields before sending.';
+    document.getElementById('contactNote').style.color = 'var(--accent)';
+    return;
+  }
+  document.getElementById('contactFormWrap').innerHTML = `
+    <div class="success-state">
+      <div class="success-icon">✓</div>
+      <h2>Message received (demo)</h2>
+      <p class="modal-sub">Thanks, ${name} — this is a UI demo, so nothing was actually sent. In the live version, this would email your message straight to Zahra Web Studio.</p>
+    </div>`;
+}
+
+let chatOpen = false;
+function toggleChat(){
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+}
+
+const chatRules = [
+  {keys:['price','cost','how much','budget'], reply:"Prices vary by service and tier — you can see live pricing on every card above. WordPress sites start around $300, while full SaaS platforms start around $5,000."},
+  {keys:['time','long','fast','turnaround','deadline'], reply:"Timelines depend on scope — brochure sites usually take about a week, while full platform builds can take several weeks to a few months."},
+  {keys:['shopify'], reply:"Shopify store builds start at $800 for a standard theme, or $1,400 for a fully custom theme build. You can add it straight to your cart above."},
+  {keys:['woocommerce','wordpress'], reply:"WordPress and WooCommerce builds are in the Web Dev section above — brochure sites from $300, full stores from $600."},
+  {keys:['magento','adobe commerce'], reply:"Magento 2 / Adobe Commerce is the flagship enterprise build, starting at $2,500 for a starter store or $6,000 for a full enterprise build."},
+  {keys:['security','hack','malware','magecart'], reply:"Security work is in the Security section — Magecart remediation starts at $250, with an emergency 24-48hr option at $450."},
+  {keys:['seo','migrat'], reply:"Platform migrations with full SEO preservation (301 redirects, URL mapping) start at $350 — see the Migrations section above."},
+  {keys:['payment','gateway','stripe','jazzcash'], reply:"Payment gateway integration starts at $200 for a single gateway, or $450 for multi-gateway with conditional rules."},
+  {keys:['saas','erp','platform'], reply:"SaaS/ERP platform builds start at $5,000 for a single module, up to $12,000 for a full multi-tenant platform."},
+  {keys:['freelance','join','hire me'], reply:"If you're a freelancer looking to join a project, click \"Join as freelancer\" in the header to see the monthly membership tiers."},
+  {keys:['contact','talk','human','call'], reply:"You can reach out directly using the Contact form near the bottom of the page, and I'll get back to you personally."},
+  {keys:['hi','hello','hey'], reply:"Hey there! Ask me about pricing, timelines, or which service fits your project."},
+];
+
+function botReply(text){
+  const lower = text.toLowerCase();
+  for(const rule of chatRules){
+    if(rule.keys.some(k => lower.includes(k))) return rule.reply;
+  }
+  return "I don't have a scripted answer for that yet — this is a demo assistant. Try asking about pricing, timelines, or a specific service like Shopify or Magento.";
+}
+
+function sendChat(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const body = document.getElementById('chatBody');
+
+  const userMsg = document.createElement('div');
+  userMsg.className = 'msg user';
+  userMsg.textContent = text;
+  body.appendChild(userMsg);
+  input.value = '';
+  body.scrollTop = body.scrollHeight;
+
+  const typing = document.createElement('div');
+  typing.className = 'typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  body.appendChild(typing);
+  body.scrollTop = body.scrollHeight;
+
+  setTimeout(() => {
+    typing.remove();
+    const botMsg = document.createElement('div');
+    botMsg.className = 'msg bot';
+    botMsg.textContent = botReply(text);
+    body.appendChild(botMsg);
+    body.scrollTop = body.scrollHeight;
+  }, 700 + Math.random()*500);
+}
+
+function demoSubmit(kind){
+  const tier = freelancerTiers.find(t => t.id === selectedTier);
+  const content = document.getElementById('modalContent');
+  if(kind === 'signin'){
+    content.innerHTML = `
+      <div class="success-state">
+        <div class="success-icon">✓</div>
+        <h2>Signed in (demo)</h2>
+        <p class="modal-sub">This is a UI demo — no real authentication happens here. In the live version, this would drop you into your freelancer dashboard.</p>
+      </div>`;
+  } else {
+    content.innerHTML = `
+      <div class="success-state">
+        <div class="success-icon">✓</div>
+        <h2>Welcome to the studio</h2>
+        <p class="modal-sub">Demo only — no real payment was charged. In the live version, you'd be subscribed to the <b>${tier.name}</b> plan at $${tier.price}/month and matched to an active project.</p>
+      </div>`;
+  }
+}
+</script>
+<button class="chat-fab" onclick="toggleChat()" aria-label="Open chat assistant">
+  <span class="chat-dot"></span>
+  💬
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-head-info">
+      <div class="chat-avatar">Z</div>
+      <div><b>Studio Assistant</b><span>Usually replies instantly</span></div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg bot">Hi! I'm the Zahra Web Studio assistant. Ask me about pricing, timelines, or which service fits your project.</div>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+  <div class="chat-note">Demo assistant — scripted responses, not a live AI model.</div>
+</div>
+
+</body>
+</html>
