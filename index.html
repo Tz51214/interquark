@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -420,7 +420,7 @@
    and make sure your NestJS server is running.
    ============================================================ */
 const API_BASE = 'http://localhost:3000';
-
+ 
 const catalog = {
   webdev: [
     {id:'wp-01', sku:'ZWS-WP-01', name:'WordPress Business Site', badge:null,
@@ -700,7 +700,7 @@ function sendChat(){
     body.scrollTop = body.scrollHeight;
   }, 700 + Math.random()*500);
 }
-
+ 
 /* ============================================================
    REAL AUTH — wired to your NestJS backend
    Adjust field names below (name/email/password) if your
@@ -711,34 +711,34 @@ async function submitSignin(){
   const password = document.getElementById('signinPassword').value;
   const note = document.getElementById('signinNote');
   const btn = document.getElementById('signinBtn');
-
+ 
   if(!email || !password){
     note.textContent = 'Please fill in both fields.';
     note.style.color = 'var(--accent)';
     return;
   }
-
+ 
   btn.disabled = true;
   note.textContent = 'Signing in...';
   note.style.color = 'var(--text-faint)';
-
+ 
   try {
     const res = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ email, password })
     });
-
+ 
     let data = {};
     try { data = await res.json(); } catch(e) { /* non-JSON response */ }
-
+ 
     if(!res.ok){
       note.textContent = data.message || `Sign in failed (${res.status}).`;
       note.style.color = 'var(--accent)';
       btn.disabled = false;
       return;
     }
-
+ 
     document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
         <div class="success-icon">✓</div>
@@ -751,41 +751,41 @@ async function submitSignin(){
     btn.disabled = false;
   }
 }
-
+ 
 async function submitJoin(){
   const name = document.getElementById('joinName').value.trim();
   const email = document.getElementById('joinEmail').value.trim();
   const password = document.getElementById('joinPassword').value;
   const note = document.getElementById('joinNote');
   const btn = document.getElementById('joinBtn');
-
+ 
   if(!name || !email || !password){
     note.textContent = 'Please fill in all fields.';
     note.style.color = 'var(--accent)';
     return;
   }
-
+ 
   btn.disabled = true;
   note.textContent = 'Creating account...';
   note.style.color = 'var(--text-faint)';
-
+ 
   try {
     const res = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ name, email, password, tier: selectedTier })
     });
-
+ 
     let data = {};
     try { data = await res.json(); } catch(e) { /* non-JSON response */ }
-
+ 
     if(!res.ok){
       note.textContent = data.message || `Registration failed (${res.status}).`;
       note.style.color = 'var(--accent)';
       btn.disabled = false;
       return;
     }
-
+ 
     const tier = freelancerTiers.find(t => t.id === selectedTier);
     document.getElementById('modalContent').innerHTML = `
       <div class="success-state">
@@ -823,3 +823,4 @@ async function submitJoin(){
 </div>
 </body>
 </html>
+ 
